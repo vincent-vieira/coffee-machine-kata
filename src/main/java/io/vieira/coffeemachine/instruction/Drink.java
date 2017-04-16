@@ -9,7 +9,8 @@ public class Drink implements Instructable, Payable {
     public enum Type implements Instructable {
         TEA("T", 0.4),
         CHOCOLATE("H", 0.5),
-        COFFEE("C", 0.6);
+        COFFEE("C", 0.6),
+        ORANGE_JUICE("O", 0.6);
 
         private final String instruction;
         private final double price;
@@ -45,7 +46,7 @@ public class Drink implements Instructable, Payable {
 
     public Drink(Type type, int sugarNumber) {
         this.type = type;
-        this.sugarNumber = sugarNumber;
+        this.sugarNumber = type != Type.ORANGE_JUICE ? sugarNumber : 0;
     }
 
     @Override

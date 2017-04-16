@@ -1,5 +1,4 @@
 # Coffee machine Kata [![Build Status](https://www.travis-ci.org/vincent-vieira/coffee-machine-kata.svg?branch=master)](https://www.travis-ci.org/vincent-vieira/coffee-machine-kata)
-
 ## About the project
 This project is my own implementation of the [Coffee Machine Kata](http://simcap.github.io/coffeemachine).
 It is made for Java8, with seamless integration with [TravisCI](https://travis-ci.org) in order to validate changes made on the develop branch.
