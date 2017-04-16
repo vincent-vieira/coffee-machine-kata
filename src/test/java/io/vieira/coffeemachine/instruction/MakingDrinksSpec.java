@@ -19,23 +19,40 @@ public class MakingDrinksSpec {
         Drink teaWithSugar = new Drink(Drink.Type.TEA, 1);
         assertThat(teaWithSugar.getInstruction()).isEqualTo("T:1:1");
 
+        //Even with sugarNumber set, an orange juice can not be "sugarred" !
         Drink orangeJuiceWithSugar = new Drink(Drink.Type.ORANGE_JUICE, 1);
         assertThat(orangeJuiceWithSugar.getInstruction()).isEqualTo("O::");
     }
 
     @Test
     public void drinkMakerShouldMakeAllKindOfDrinksWithoutAStick() {
-        Drink coffee = new Drink(Drink.Type.COFFEE,  0);
+        Drink coffee = new Drink(Drink.Type.COFFEE);
         assertThat(coffee.getInstruction()).isEqualTo("C::");
 
-        Drink chocolate = new Drink(Drink.Type.CHOCOLATE, 0);
+        Drink chocolate = new Drink(Drink.Type.CHOCOLATE);
         assertThat(chocolate.getInstruction()).isEqualTo("H::");
 
-        Drink tea = new Drink(Drink.Type.TEA, 0);
+        Drink tea = new Drink(Drink.Type.TEA);
         assertThat(tea.getInstruction()).isEqualTo("T::");
 
-        Drink orangeJuice = new Drink(Drink.Type.ORANGE_JUICE, 0);
+        Drink orangeJuice = new Drink(Drink.Type.ORANGE_JUICE);
         assertThat(orangeJuice.getInstruction()).isEqualTo("O::");
+    }
+
+    @Test
+    public void drinkMakerShouldMakeAllKindOfExtraHotDrinksExceptOrangeJuice() {
+        Drink extraHotCoffee = new Drink(Drink.Type.COFFEE, 1, true);
+        assertThat(extraHotCoffee.getInstruction()).isEqualTo("Ch:1:1");
+
+        Drink extraHotChocolate = new Drink(Drink.Type.CHOCOLATE, 1, true);
+        assertThat(extraHotChocolate.getInstruction()).isEqualTo("Hh:1:1");
+
+        Drink extraHotTea = new Drink(Drink.Type.TEA, 1, true);
+        assertThat(extraHotTea.getInstruction()).isEqualTo("Th:1:1");
+
+        // An orange juice must be fresh to be great.
+        Drink extraHotOrangeJuice = new Drink(Drink.Type.ORANGE_JUICE, 0, true);
+        assertThat(extraHotOrangeJuice.getInstruction()).isEqualTo("O::");
     }
 
     @Test

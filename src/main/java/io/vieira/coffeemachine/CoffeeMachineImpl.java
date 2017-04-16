@@ -23,11 +23,14 @@ public class CoffeeMachineImpl implements CoffeeMachine {
             if(parts.length < 2 || parts.length > 3){
                 throw new IllegalArgumentException("Invalid instruction : "+instruction);
             }
-            switch(parts[0]) {
+            String drinkCode = parts[0];
+            switch(drinkCode) {
                 case "M":
                     return new UserMessage(parts[1]);
                 default:
-                    return new Drink(Drink.Type.fromCode(parts[0]), "".equals(parts[1]) ? 0 : Integer.parseInt(parts[1]));
+                    boolean isDrinkExtraHot = drinkCode.contains("h");
+                    if(isDrinkExtraHot) drinkCode = drinkCode.replace("h", "");
+                    return new Drink(Drink.Type.fromCode(drinkCode), "".equals(parts[1]) ? 0 : Integer.parseInt(parts[1]), isDrinkExtraHot);
             }
         }).collect(Collectors.toList());
 

@@ -27,7 +27,7 @@ public class MakingThemPaySpec {
     public void brewingDrinksWithEnoughMoneyShouldShowThem() {
         List<String> drinksToBrew = Stream.of(
                 new Drink(Drink.Type.COFFEE, 1),
-                new Drink(Drink.Type.CHOCOLATE, 0)
+                new Drink(Drink.Type.CHOCOLATE)
         ).map(Instructable::getInstruction).collect(Collectors.toList());
         coffeeMachine.process(drinksToBrew, 1.5);
 
@@ -45,7 +45,7 @@ public class MakingThemPaySpec {
     public void brewingDrinksWithoutEnoughMoneyShouldShowAMessage() {
         List<String> drinksToBrew = Stream.of(
                 new Drink(Drink.Type.COFFEE, 1),
-                new Drink(Drink.Type.CHOCOLATE, 0)
+                new Drink(Drink.Type.CHOCOLATE)
         ).map(Instructable::getInstruction).collect(Collectors.toList());
         coffeeMachine.process(drinksToBrew, 0.7);
 
