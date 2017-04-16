@@ -1,11 +1,15 @@
 package io.vieira.coffeemachine;
 
-import io.vieira.coffeemachine.instruction.Drink;
-import io.vieira.coffeemachine.instruction.UserMessage;
-
 import java.util.List;
 
 public interface CoffeeMachine {
-    void brew(List<Drink> drinksToBrew, double paymentAmount);
-    void processMessage(UserMessage message);
+
+    /**
+     * Processes the supplied instructions, or dies trying.
+     * Instructions are resolved against {@link io.vieira.coffeemachine.instruction.Instructable} values.
+     *
+     * @param instructions the target instructions
+     * @param paymentAmount the amount of money supplied inside the machine.
+     */
+    void process(List<String> instructions, double paymentAmount);
 }
