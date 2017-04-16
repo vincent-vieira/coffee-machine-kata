@@ -12,4 +12,8 @@ public class UserMessage implements Instructable {
     public String getInstruction() {
         return String.format("M:%s", this.message);
     }
+
+    public String getMessage() {
+        return message;
+    }
 }
