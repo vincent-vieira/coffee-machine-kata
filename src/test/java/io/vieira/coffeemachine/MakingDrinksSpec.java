@@ -4,6 +4,7 @@ import org.junit.Test;
 
 public class MakingDrinksSpec {
 
+    //With a stick = with sugar, in fact.
     @Test
     public void drinkMakerShouldMakeAllKindOfDrinksWithAStick() {
 
@@ -11,16 +12,6 @@ public class MakingDrinksSpec {
 
     @Test
     public void drinkMakerShouldMakeAllKindOfDrinksWithoutAStick() {
-
-    }
-
-    @Test
-    public void drinkMakerShouldMakeAllKindOfDrinksWithSugar() {
-
-    }
-
-    @Test
-    public void drinkMakerShouldMakeAllKindOfDrinksWithoutSugar() {
 
     }
 
