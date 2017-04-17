@@ -63,11 +63,21 @@ public class CoffeeMachineImpl implements CoffeeMachine {
                 else {
                     messageHandler.handleMessage(toBrew);
                     paymentAmount -= toBrew.getPrice();
+                    summary.computeIfPresent(toBrew.getType(), (type, integer) -> ++integer);
+                    summary.putIfAbsent(toBrew.getType(), 1);
                 }
             }
             else {
                 messageHandler.handleMessage(instructable);
             }
         }
+    }
+
+    @Override
+    public void report() {
+        this.salesReporter.printReport(
+                this.summary,
+                this.summary.entrySet().stream().mapToDouble(drinkEntry -> drinkEntry.getKey().getPrice() * drinkEntry.getValue()).sum()
+        );
     }
 }
