@@ -1,6 +1,6 @@
 package io.vieira.coffeemachine.payment;
 
-public interface Payable {
+public interface Priceable {
     /**
      * Gets the price of the implementing resource.
      * @return the price

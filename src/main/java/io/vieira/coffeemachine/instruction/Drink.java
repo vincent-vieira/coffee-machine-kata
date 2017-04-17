@@ -1,10 +1,10 @@
 package io.vieira.coffeemachine.instruction;
 
-import io.vieira.coffeemachine.payment.Payable;
+import io.vieira.coffeemachine.payment.Priceable;
 
 import java.text.MessageFormat;
 
-public class Drink implements Instructable, Payable {
+public class Drink implements Instructable, Priceable {
 
     public enum Type implements Instructable {
         TEA("T", 0.4),
