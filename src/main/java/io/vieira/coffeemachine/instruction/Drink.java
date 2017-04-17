@@ -65,6 +65,10 @@ public class Drink implements Instructable, Payable {
         return this.type.getPrice();
     }
 
+    public Type getType() {
+        return type;
+    }
+
     @Override
     public String getInstruction() {
         return MessageFormat.format(
