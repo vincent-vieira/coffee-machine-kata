@@ -12,4 +12,9 @@ public interface CoffeeMachine {
      * @param paymentAmount the amount of money supplied inside the machine.
      */
     void process(List<String> instructions, double paymentAmount);
+
+    /**
+     * Triggers the reporting of already brewed drinks.
+     */
+    void report();
 }

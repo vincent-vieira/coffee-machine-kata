@@ -2,18 +2,36 @@ package io.vieira.coffeemachine;
 
 import io.vieira.coffeemachine.instruction.Drink;
 import io.vieira.coffeemachine.instruction.Instructable;
-import io.vieira.coffeemachine.instruction.UserMessage;
 import io.vieira.coffeemachine.instruction.MachineMessageHandler;
+import io.vieira.coffeemachine.instruction.UserMessage;
+import io.vieira.coffeemachine.reporting.DrinksSalesReporter;
 
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 public class CoffeeMachineImpl implements CoffeeMachine {
 
-    private MachineMessageHandler messageHandler;
+    private final DrinksSalesReporter salesReporter;
+    private final MachineMessageHandler messageHandler;
+    private final Map<Drink.Type, Integer> summary = new ConcurrentHashMap<>();
+
+    public CoffeeMachineImpl(){
+        this(null, null);
+    }
 
     public CoffeeMachineImpl(MachineMessageHandler handler) {
+        this(handler, null);
+    }
+
+    public CoffeeMachineImpl(DrinksSalesReporter reporter) {
+        this(null, reporter);
+    }
+
+    public CoffeeMachineImpl(MachineMessageHandler handler, DrinksSalesReporter salesReporter) {
         this.messageHandler = handler == null ? MachineMessageHandler.DEFAULT: handler;
+        this.salesReporter = salesReporter == null ? DrinksSalesReporter.NOOP : salesReporter;
     }
 
     @Override
