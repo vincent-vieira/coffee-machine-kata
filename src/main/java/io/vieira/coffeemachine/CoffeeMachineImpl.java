@@ -15,23 +15,27 @@ public class CoffeeMachineImpl implements CoffeeMachine {
 
     private final DrinksSalesReporter salesReporter;
     private final MachineMessageHandler messageHandler;
+    private final DrinkQuantityChecker quantityChecker;
+    private final MissingDrinkNotifier missingDrinkNotifier;
     private final Map<Drink.Type, Integer> summary = new ConcurrentHashMap<>();
 
     public CoffeeMachineImpl(){
-        this(null, null);
+        this(null, null, null, null);
     }
 
     public CoffeeMachineImpl(MachineMessageHandler handler) {
-        this(handler, null);
+        this(handler, null, null, null);
     }
 
     public CoffeeMachineImpl(DrinksSalesReporter reporter) {
-        this(null, reporter);
+        this(null, reporter, null, null);
     }
 
-    public CoffeeMachineImpl(MachineMessageHandler handler, DrinksSalesReporter salesReporter) {
+    public CoffeeMachineImpl(MachineMessageHandler handler, DrinksSalesReporter salesReporter, DrinkQuantityChecker quantityChecker, MissingDrinkNotifier missingDrinkNotifier) {
         this.messageHandler = handler == null ? MachineMessageHandler.DEFAULT: handler;
-        this.salesReporter = salesReporter == null ? DrinksSalesReporter.NOOP : salesReporter;
+        this.salesReporter = salesReporter == null ? DrinksSalesReporter.DEFAULT : salesReporter;
+        this.quantityChecker = quantityChecker == null ? DrinkQuantityChecker.NOOP : quantityChecker;
+        this.missingDrinkNotifier = missingDrinkNotifier == null ? MissingDrinkNotifier.NOOP : missingDrinkNotifier;
     }
 
     @Override
@@ -60,11 +64,14 @@ public class CoffeeMachineImpl implements CoffeeMachine {
                             String.format("%.1f is missing to brew your drink !", toBrew.getPrice() - paymentAmount)
                     ));
                 }
-                else {
+                else if(this.quantityChecker.canBrew(toBrew)) {
                     messageHandler.handleMessage(toBrew);
                     paymentAmount -= toBrew.getPrice();
                     summary.computeIfPresent(toBrew.getType(), (type, integer) -> ++integer);
                     summary.putIfAbsent(toBrew.getType(), 1);
+                }
+                else {
+                    this.missingDrinkNotifier.notifyMissing(toBrew);
                 }
             }
             else {
